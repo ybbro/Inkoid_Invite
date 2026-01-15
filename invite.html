@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<!-- HTML5 규격임을 브라우저에 알려줌 -->
+
+<html>
+<!-- HTML 문서의 시작 -->
+
+<head>
+  <!-- 눈에 안 보이는 설정 (페이지 설정, 문자 인코딩, 스크립트) -->
+
+  <meta charset="utf-8">
+  <title>Inkoid Invite</title>
+  <!-- 페이지 제목 (기능에는 영향 없음) -->
+
+  <script>
+    // 실제 동작이 일어나는 핵심!
+    // 이 영역은 JavaScript 문법을 사용함
+
+    const params = new URLSearchParams(window.location.search);
+    // URL의 ? 뒤에 붙은 파라미터들을 읽어옴
+
+    const code = params.get("code");
+    // 파티 코드만 추출
+
+    // code가 있을 때만 실행
+    if (code) {
+      // 앱 실행 시도 (설치된 경우 바로 실행됨)
+      window.location.href = "inkoid://join?code=" + code;
+
+      // 앱이 없을 경우 대비 (1.5초 후 스토어 이동) >> 출시 이후 스토어 페이지 주소 기입 필요
+      setTimeout(() => {
+        window.location.href =
+          "https://play.google.com/store/apps/details?id=com.SpaceCowboy.Inkoid";
+      }, 1500);
+    }
+  </script>
+</head>
+<!-- head 영역의 끝 -->
+
+<body>
+  Processing your invitation…
+</body>
+
+</html>
+<!-- HTML 문서의 끝 -->
