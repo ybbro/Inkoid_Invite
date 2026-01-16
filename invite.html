@@ -24,13 +24,23 @@
 
     // code가 있을 때만 실행
     if (code) {
+      let fallback = true;
+      // 앱 실행 시 브라우저가 백그라운드로 가면 fallback 취소
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "hidden") {
+          fallback = false;
+        }
+      });
+
       // 앱 실행 시도 (설치된 경우 바로 실행됨)
       window.location.href = "inkoid://join?code=" + code;
 
-      // 앱이 없을 경우 대비 (1.5초 후 스토어 이동) >> 출시 이후 스토어 페이지 주소 기입 필요
+      // fallback, 앱이 없을 경우 대비 (1.5초 후 스토어 이동) >> 출시 이후 스토어 페이지 주소 기입 필요
       setTimeout(() => {
+	if (fallback) {
         window.location.href =
           "https://play.google.com/store/apps/details?id=com.SpaceCowboy.Inkoid";
+	}
       }, 1500);
     }
   </script>
